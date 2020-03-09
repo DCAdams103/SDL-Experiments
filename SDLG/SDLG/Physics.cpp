@@ -80,12 +80,12 @@ void Physics::playerDynamic(double x, double y, double width, double height)
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(x, y);
+	bodyDef.position.Set(x * PTM, y * PTM);
 	
 	body = world.CreateBody(&bodyDef);
 
 	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox((200.0f) / 2, (200.0f) / 2);
+	dynamicBox.SetAsBox(PTM * ((200.0f) / 2), PTM * ((200.0f) / 2));
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;
@@ -102,8 +102,8 @@ void Physics::playerDynamic(double x, double y, double width, double height)
 
 	world.Step(timeStep, velocityIterations, positionIterations);
 	
-	posX = x ;
-	posY = y;
+	posX = x *MTP;
+	posY = y *MTP;
 
 	bodyType = "player";
 }
@@ -140,12 +140,12 @@ b2Body* Physics::makeStaticReturn(int x, int y, int width, int height)
 {
 	b2Body* tempBody;
 	b2BodyDef tempBodyDef;
-	tempBodyDef.position.Set(x, y);
+	tempBodyDef.position.Set(x * PTM, y *PTM);
 
 	tempBody = world.CreateBody(&tempBodyDef);
 
 	b2PolygonShape tempBox;
-	tempBox.SetAsBox(width, height);
+	tempBox.SetAsBox(PTM * width, PTM * height);
 	tempBody->SetUserData(this);
 
 	b2FixtureDef tempDef;
@@ -155,6 +155,8 @@ b2Body* Physics::makeStaticReturn(int x, int y, int width, int height)
 	tempDef.filter.groupIndex = -3;
 
 	tempBody->CreateFixture(&tempDef);
+
+	bodyType = "static";
 
 	return tempBody;
 }
@@ -209,42 +211,47 @@ void Physics::moveBodies()
 		switch (moveState)
 		{
 		case MS_UP:
-			forceY = -50;
+			forceY = -5;
 			break;
 		case MS_DOWN:
-			forceY = 50;
+			forceY = 5;
 			break;
 		case MS_LEFT:
-			forceX = -50;
+			forceX = -5;
 			break;
 		case MS_RIGHT:
-			forceX = 300;
+			forceX = 5;
 			break;
 		case MS_UPRIGHT:
-			forceY = -50;
-			forceX = 50;
+			forceY = -5;
+			forceX = 5;
 			break;
 		case MS_UPLEFT:
-			forceY = -50;
-			forceX = -50;
+			forceY = -5;
+			forceX = -5;
 			break;
 		case MS_DOWNRIGHT:
-			forceY = 50;
-			forceX = 50;
+			forceY = 5;
+			forceX = 5;
 			break;
 		case MS_DOWNLEFT:
-			forceY = 50;
-			forceX = -50;
+			forceY = 5;
+			forceX = -5;
 			break;
 		case MS_STOP:
 			body->SetLinearVelocity(b2Vec2(0, 0));
 		}
 
 		// Applies force to body and grabs new position
-		body->ApplyLinearImpulse(b2Vec2(forceX * 20, forceY * 20), body->GetWorldCenter(), true);
-		pos = body->GetPosition();
-		posX = body->GetPosition().x;
-		posY = body->GetPosition().y;
+		float velChange = forceX - body->GetLinearVelocity().x;
+		float velChangeY = forceY - body->GetLinearVelocity().y;
+		float forceX1 = body->GetMass() * velChange / (1 / 60.0f); // f = mv/t
+		float forceY1 = body->GetMass() * velChangeY / (1 / 60.0f);
+		body->ApplyForce(b2Vec2(forceX1, forceY1), body->GetWorldCenter(), true);
+		pos = b2Vec2(body->GetPosition().x*MTP, body->GetPosition().y*MTP);
+		posX = body->GetPosition().x*MTP;
+		posY = body->GetPosition().y*MTP;
+		//printf("%f\n", posX);
 	}
 
 	// Updates physics world

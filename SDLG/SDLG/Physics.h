@@ -48,7 +48,8 @@ public:
 	float32 timeStep;
 	int32 velocityIterations;
 	int32 positionIterations;
-	const float PPM = 32.0f;
+	const float MTP = 100.0f;
+	const float PTM = 1 / MTP;
 };
 
 class myCollisionDetection : public b2ContactListener

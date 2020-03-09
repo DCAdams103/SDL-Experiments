@@ -108,15 +108,14 @@ void Map::DrawMap()
 			case 2:
 				MainClass::Draw(rockGrass, src, dest);
 
-				if (loading <= obstacleTiles - 1) // number of scenery items - 1
+				if (loading <= obstacleTiles - 1) // number of scenery items
 				{
-					rockBody = obstaclePhysics.makeStaticReturn(dest.x, dest.y, 0, 0);
-
+					rockBody = obstaclePhysics.makeStaticReturn(dest.x-35, dest.y-35, 0,0);
 					loading++;
 				}
 
 				// Sets position of rock
-				rockBody->SetTransform(b2Vec2((float)dest.x, (float)dest.y), rockBody->GetAngle());
+				//rockBody->SetTransform(b2Vec2((float)dest.x - 35, (float)dest.y - 40), rockBody->GetAngle());
 				break;
 			}
 		}
@@ -127,7 +126,7 @@ void Map::DrawMap()
 // Create physics body for rocks
 void Map::createPhysics(SDL_Rect src, SDL_Rect dest)
 {
-	obstaclePhysics.makeStatic((float)dest.x, (float)dest.y, (float)src.w, (float)src.h);
+	obstaclePhysics.makeStatic((float)dest.x, (float)dest.y, (float)src.w+ 100, (float)src.h);
 }
 
 // Deconstructor method
