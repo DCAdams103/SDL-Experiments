@@ -1,2 +1,4 @@
-﻿  Map.cpp
+﻿  Main.cpp
+c:\users\test account\documents\github\sdl-experiments\sdlg\sdlg\main.cpp(62): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\test account\documents\github\sdl-experiments\sdlg\sdlg\main.cpp(63): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   SDLExtendable.vcxproj -> C:\Users\Test Account\Documents\GitHub\SDL-Experiments\SDLG\Debug\SDLG.exe

@@ -76,7 +76,7 @@ void Physics::makeDynamic()
 }
 
 // Creates the player physcis body. One that can be affected by forces
-void Physics::playerDynamic(double x, double y, double width, double height)
+void Physics::playerDynamic(float x, float y, float width, float height)
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
@@ -85,7 +85,7 @@ void Physics::playerDynamic(double x, double y, double width, double height)
 	body = world.CreateBody(&bodyDef);
 
 	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(PTM * ((200.0f) / 2), PTM * ((200.0f) / 2));
+	dynamicBox.SetAsBox(PTM * ((200.0f) / 7.0f), PTM * ((200.0f) / 7.0f));
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;
@@ -136,7 +136,7 @@ void Physics::makeStatic(float x, float y, float width, float height)
 }
 
 // Returns a static physics body
-b2Body* Physics::makeStaticReturn(int x, int y, int width, int height)
+b2Body* Physics::makeStaticReturn(float x, float y, float width, float height)
 {
 	b2Body* tempBody;
 	b2BodyDef tempBodyDef;
@@ -145,7 +145,8 @@ b2Body* Physics::makeStaticReturn(int x, int y, int width, int height)
 	tempBody = world.CreateBody(&tempBodyDef);
 
 	b2PolygonShape tempBox;
-	tempBox.SetAsBox(PTM * width, PTM * height);
+	//tempBox.SetAsBox(PTM * width, PTM * height);
+	tempBox.SetAsBox(PTM * ((200.0f) / 7.0f), PTM * ((200.0f) /7.0f));
 	tempBody->SetUserData(this);
 
 	b2FixtureDef tempDef;

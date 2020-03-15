@@ -15,7 +15,7 @@ public:
 	void render();
 	static void Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest);
 
-	SDL_Rect createRect(float, float, int, int);
+	SDL_Rect createRect(float, float, float, float);
 	SDL_Texture* LoadTexture(string);
 	SDL_Texture* player1 = NULL;
 	SDL_Texture* box = NULL;

@@ -34,11 +34,11 @@ public:
 	// Moves the player via forces
 	void moveBodies();
 	void makeDynamic();
-	void playerDynamic(double x , double y , double width, double height);
+	void playerDynamic(float x , float y , float width, float height);
 	void makeStatic(float x, float y, float width, float height);
 	void move(const Uint8*);
 
-	b2Body* makeStaticReturn(int x, int y, int width, int height);
+	b2Body* makeStaticReturn(float x, float y, float width, float height);
 	
 	std::string bodyType = "";
 	b2Body* body;

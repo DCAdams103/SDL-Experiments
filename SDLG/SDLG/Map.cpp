@@ -110,7 +110,7 @@ void Map::DrawMap()
 
 				if (loading <= obstacleTiles - 1) // number of scenery items
 				{
-					rockBody = obstaclePhysics.makeStaticReturn(dest.x-35, dest.y-35, 0,0);
+					rockBody = obstaclePhysics.makeStaticReturn(dest.x, dest.y, 0,0);
 					loading++;
 				}
 
