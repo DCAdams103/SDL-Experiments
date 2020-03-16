@@ -59,21 +59,37 @@ void MainClass::render()
 	player1 = Player::getTexture();
 
 	// Sets camera to center of center
-	camera.x = ((int)physics2.body->GetPosition().x - ((Source::SCREEN_WIDTH / 2))) /* physics2.MTP*/;
-	camera.y = ((int)physics2.body->GetPosition().y - ((Source::SCREEN_HEIGHT / 2)))/* physics2.MTP*/;
+	camera.x = ((int)physics2.body->GetPosition().x /*- ((Source::SCREEN_WIDTH / 2) / (int)physics2.MTP)*/) /* physics2.MTP*/;
+	camera.y = ((int)physics2.body->GetPosition().y /*- ((Source::SCREEN_HEIGHT / 2))*/)/* physics2.MTP*/;
+
+	printf("camera x: %d\n", camera.x);
+	printf("screen width: %d\n", Source::SCREEN_WIDTH);
 
 	// Creates bounds
 	if (camera.x < 0)
 		camera.x = 0;
 	if (camera.y  < 0)
 		camera.y = 0;
-	if (camera.x  > camera.w )
-		camera.x = (camera.w);
 
-	if (camera.x * (int)physics2.PTM + camera.w * (int)physics2.PTM >= levelWidth)
-		camera.x = (levelWidth - Source::SCREEN_WIDTH) * (int)physics2.PTM;
-	if (camera.y * (int)physics2.PTM + camera .h >= levelHeight )
-		camera.y = (levelHeight - Source::SCREEN_HEIGHT) * (int)physics2.PTM;
+	if (camera.x >= (Source::SCREEN_WIDTH / 2) / physics2.MTP)
+	{
+		camera.x = (int)(physics2.body->GetPosition().x / physics2.PTM) - 1000;
+		printf("center");
+	}
+	if (camera.y >= (Source::SCREEN_HEIGHT / 2) / physics2.MTP)
+	{
+		camera.y = (int)(physics2.body->GetPosition().y / physics2.PTM) - 600;
+		printf("center");
+	}
+	/*if (camera.x > camera.w / (int)physics2.MTP)
+	{
+		camera.x = (camera.w );
+		printf("move");
+	}*/
+	if (camera.x + camera.w >= levelWidth)
+		camera.x = (levelWidth - Source::SCREEN_WIDTH);
+	if (camera.y + camera.h >= levelHeight )
+		camera.y = (levelHeight - Source::SCREEN_HEIGHT);
 
 	// Run this to allow the character to be moved
 	physics2.moveBodies();
@@ -83,7 +99,7 @@ void MainClass::render()
 	SDL_SetRenderDrawColor(Source::gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
 	// This rect focuses the camera on the player. 
-	drawingRect = { ((playerRect.x) - camera.x * (int)physics2.PTM), ((playerRect.y) - camera.y * (int)physics2.PTM), (playerRect.w), playerRect.h };
+	drawingRect = { ((playerRect.x) - camera.x), ((playerRect.y) - camera.y), (playerRect.w), playerRect.h };
 
 	// Clears the current rendering target with specified drawing color (set above)
 	SDL_RenderClear(Source::gRenderer);

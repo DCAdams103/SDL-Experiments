@@ -49,7 +49,7 @@ public:
 	int32 velocityIterations;
 	int32 positionIterations;
 	const float MTP = 100.0f;
-	const float PTM = 1 / MTP;
+	const float PTM = 1.0f / MTP;
 };
 
 class myCollisionDetection : public b2ContactListener
