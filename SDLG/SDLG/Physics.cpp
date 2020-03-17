@@ -67,9 +67,8 @@ void Physics::makeDynamic()
 
 	// Updates the world
 	world.Step(timeStep, velocityIterations, positionIterations);
-	pos = body->GetPosition();
-	posX = pos.x;
-	posY = pos.y;
+	posX = body->GetPosition().x;
+	posY = body->GetPosition().y;
 
 	bodyType = "dynamic";
 
@@ -127,9 +126,8 @@ void Physics::makeStatic(float x, float y, float width, float height)
 	fixtureDef.filter.groupIndex = -3;
 
 	groundBody->CreateFixture(&fixtureDef);
-	pos = groundBody->GetPosition();
-	posX = pos.x;
-	posY = pos.y;
+	posX = groundBody->GetPosition().x;
+	posY = groundBody->GetPosition().y;
 
 	bodyType = "static";
 
@@ -145,7 +143,6 @@ b2Body* Physics::makeStaticReturn(float x, float y, float width, float height)
 	tempBody = world.CreateBody(&tempBodyDef);
 
 	b2PolygonShape tempBox;
-	//tempBox.SetAsBox(PTM * width, PTM * height);
 	tempBox.SetAsBox(PTM * ((200.0f) / 7.0f), PTM * ((200.0f) /7.0f));
 	tempBody->SetUserData(this);
 
@@ -249,10 +246,9 @@ void Physics::moveBodies()
 		float forceX1 = body->GetMass() * velChange / (1 / 60.0f); // f = mv/t
 		float forceY1 = body->GetMass() * velChangeY / (1 / 60.0f);
 		body->ApplyForce(b2Vec2(forceX1, forceY1), body->GetWorldCenter(), true);
-		pos = b2Vec2(body->GetPosition().x*MTP, body->GetPosition().y*MTP);
+
 		posX = body->GetPosition().x*MTP;
 		posY = body->GetPosition().y*MTP;
-		//printf("%f\n", posX);
 	}
 
 	// Updates physics world

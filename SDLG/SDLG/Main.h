@@ -18,12 +18,8 @@ public:
 	SDL_Rect createRect(float, float, float, float);
 	SDL_Texture* LoadTexture(string);
 	SDL_Texture* player1 = NULL;
-	SDL_Texture* box = NULL;
-	SDL_Rect boxRect;
-	SDL_Texture *playerTexture;
 
 	int loadCounter = 0;
-	b2Vec2 pos;
 	int levelWidth;
 	int levelHeight;
 
@@ -31,13 +27,9 @@ public:
 	SDL_Rect drawingRect;
 	b2Vec2 position;
 
-	float playerPosY = 0;
-	float groundPosY = 0;
-
 	Physics physics;
 	Physics physics1;
 	Physics physics2;
-	static Physics obstaclePhysics;
 	
 
 private:

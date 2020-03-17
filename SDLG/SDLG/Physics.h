@@ -13,10 +13,11 @@ public:
 	// Used in Main to keep track of player
 	float posX = 0.0f;
 	float posY = 0.0f;
-	b2Vec2 pos;
+
 	// Allows to focus on one body
 	Physics* returnCurrent() { return this; }
 
+	// Used to change textures
 	Player player;
 
 	// Used for collision and to determine which body is which
@@ -33,11 +34,12 @@ public:
 
 	// Moves the player via forces
 	void moveBodies();
+	void move(const Uint8*);
+
+	// Creates different types of bodies
 	void makeDynamic();
 	void playerDynamic(float x , float y , float width, float height);
 	void makeStatic(float x, float y, float width, float height);
-	void move(const Uint8*);
-
 	b2Body* makeStaticReturn(float x, float y, float width, float height);
 	
 	std::string bodyType = "";

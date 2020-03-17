@@ -59,33 +59,23 @@ void MainClass::render()
 	player1 = Player::getTexture();
 
 	// Sets camera to center of center
-	camera.x = ((int)physics2.body->GetPosition().x /*- ((Source::SCREEN_WIDTH / 2) / (int)physics2.MTP)*/) /* physics2.MTP*/;
-	camera.y = ((int)physics2.body->GetPosition().y /*- ((Source::SCREEN_HEIGHT / 2))*/)/* physics2.MTP*/;
+	camera.x = ((int)physics2.body->GetPosition().x );
+	camera.y = ((int)physics2.body->GetPosition().y);
 
-	printf("camera x: %d\n", camera.x);
-	printf("screen width: %d\n", Source::SCREEN_WIDTH);
-
-	// Creates bounds
+	// Creates bounds and camera
 	if (camera.x < 0)
 		camera.x = 0;
 	if (camera.y  < 0)
 		camera.y = 0;
 
+	
+
 	if (camera.x >= (Source::SCREEN_WIDTH / 2) / physics2.MTP)
-	{
 		camera.x = (int)(physics2.body->GetPosition().x / physics2.PTM) - 1000;
-		printf("center");
-	}
+
 	if (camera.y >= (Source::SCREEN_HEIGHT / 2) / physics2.MTP)
-	{
 		camera.y = (int)(physics2.body->GetPosition().y / physics2.PTM) - 600;
-		printf("center");
-	}
-	/*if (camera.x > camera.w / (int)physics2.MTP)
-	{
-		camera.x = (camera.w );
-		printf("move");
-	}*/
+
 	if (camera.x + camera.w >= levelWidth)
 		camera.x = (levelWidth - Source::SCREEN_WIDTH);
 	if (camera.y + camera.h >= levelHeight )
